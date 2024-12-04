@@ -1,0 +1,46 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "name": "Admin"
+    },
+    {
+      "id": 2,
+      "name": "User"
+    },
+    {
+      "id": "0fee",
+      "name": "Admin"
+    },
+    {
+      "id": "3e5e",
+      "name": "User"
+    },
+    {
+      "id": "70c6",
+      "name": "Tester"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "role": "Admin"
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "role": "User"
+    },
+    {
+      "id": "a5dc",
+      "name": "Aryan",
+      "role": "Admin"
+    },
+    {
+      "id": "e245",
+      "name": "Shubham",
+      "role": "User"
+    }
+  ]
+}
