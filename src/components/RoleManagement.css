@@ -1,0 +1,117 @@
+/* RoleManagement.css */
+
+/* Body background and font style */
+body {
+    background-color: #f4f4f9; /* Light gray background */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container for the entire page */
+  .role-management {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Add role form styling */
+  .add-role-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .add-role-form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 70%;
+  }
+  
+  .add-role-form button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .add-role-form button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f8f9fa;
+    color: #007bff; /* Primary color */
+  }
+  
+  td {
+    color: #333;
+  }
+  
+  /* Button styling for delete action */
+  .delete-button {
+    padding: 6px 12px;
+    background-color: #dc3545; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  .add-button, .delete-button {
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Responsive Design for smaller screens */
+  @media (max-width: 768px) {
+    .add-role-form {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .add-role-form input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .add-role-form button {
+      width: 100%;
+    }
+  
+    table {
+      font-size: 14px;
+    }
+  }
+  

@@ -1,0 +1,14 @@
+/* src/styles.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  button {
+    padding: 8px 16px;
+    margin: 5px;
+  }
+  
