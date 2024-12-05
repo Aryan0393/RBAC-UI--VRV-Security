@@ -106,8 +106,17 @@ Commit your changes (git commit -am 'Add new feature').
 Push to your branch (git push origin feature-name).
 Open a pull request.
 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 Acknowledgements
 Inspired by various role management systems.
 Thanks to React and Node.js for providing such a great ecosystem.
+
+output
+
+
+![Screenshot jpg 2024-1<img width="1440" alt="Screenshot 2024-12-05 at 2 49 51 AM" src="https://github.com/user-attachments/assets/b4b295ff-8a74-495e-81aa-d09c50981b43">
+2-05 at 2 50 00 AM](https://github.com/user-attachments/assets/29c18a83-549d-4094-91cd-2b4548af636e)
+
+output
