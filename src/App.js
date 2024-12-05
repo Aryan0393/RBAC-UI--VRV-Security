@@ -44,34 +44,6 @@ function App() {
     }
   };
 
-  const editUser = (id) => {
-    const userToEdit = users.find(user => user.id === id);
-    setNewUser({ name: userToEdit.name, role: userToEdit.role, id: userToEdit.id });
-  };
-  
-  const updateUser = async () => {
-    try {
-      const response = await axios.put(`http://localhost:5000/users/${newUser.id}`, newUser);
-      const updatedUsers = users.map(user => (user.id === response.data.id ? response.data : user));
-      setUsers(updatedUsers);
-    } catch (error) {
-      console.error('Error updating user:', error);
-    }
-  };
-
-  const [searchTerm, setSearchTerm] = useState('');
-
-const filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()));
-const filteredRoles = roles.filter(role => role.name.toLowerCase().includes(searchTerm.toLowerCase()));
-
-<input
-  type="text"
-  placeholder="Search Users"
-  value={searchTerm}
-  onChange={(e) => setSearchTerm(e.target.value)}
-/>
-
-
   // Add a new role
   const addRole = async () => {
     if (!newRole) {
@@ -104,30 +76,6 @@ const filteredRoles = roles.filter(role => role.name.toLowerCase().includes(sear
       console.error('Error deleting user:', error);
     }
   };
-
-  const deleteUserWithConfirmation = (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      deleteUser(id);
-    }
-  };
-
-  const usersPerPage = 5;
-const [currentPage, setCurrentPage] = useState(1);
-
-const handleNextPage = () => {
-  if (currentPage * usersPerPage < users.length) {
-    setCurrentPage(prevPage => prevPage + 1);
-  }
-};
-
-const handlePrevPage = () => {
-  if (currentPage > 1) {
-    setCurrentPage(prevPage => prevPage - 1);
-  }
-};
-
-const displayedUsers = users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
-
 
   return (
     <div className="App">
