@@ -1,78 +1,97 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap import for styling
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './RoleManagement.css';
 
-const UserManagement = () => {
-  const [users, setUsers] = useState([]);
+const RoleManagement = () => {
+  const [roles, setRoles] = useState([]);
+  const [newRole, setNewRole] = useState('');
 
-  // Fetch users data
+  // Fetch roles from the server
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/users") // Ensure this endpoint is correct
-      .then((response) => {
-        setUsers(response.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching users:", error);
-      });
+    fetchRoles();
   }, []);
 
-  // Delete user function
-  const deleteUser = (id) => {
-    axios
-      .delete(`http://localhost:5000/users/${id}`)
-      .then((response) => {
-        // Remove deleted user from the state
-        setUsers(users.filter(user => user.id !== id));
-      })
-      .catch((error) => {
-        console.log("Error deleting user:", error);
-      });
+  // Function to fetch roles from the backend
+  const fetchRoles = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/roles');
+      console.log('Roles fetched:', response.data); // Log roles to verify the data
+      setRoles(response.data); // Set roles data in state
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+    }
+  };
+
+  // Function to add a new role
+  const addRole = async () => {
+    if (!newRole) {
+      alert('Please enter a role name.');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/roles', { name: newRole });
+      setRoles([...roles, response.data]); // Add the new role to the state
+      setNewRole(''); // Clear the input after adding the role
+    } catch (error) {
+      console.error('Error adding role:', error);
+    }
+  };
+
+  // Function to delete a role
+  const deleteRole = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/roles/${id}`);
+      setRoles(roles.filter(role => role.id !== id)); // Remove the deleted role from the state
+    } catch (error) {
+      console.error('Error deleting role:', error);
+    }
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-center">User Management</h2>
-      <table className="table table-striped table-bordered">
+    <div className="role-management">
+      <h2>Role Management</h2>
+
+      {/* Form to add a new role */}
+      <div className="add-role-form">
+        <input
+          type="text"
+          placeholder="Enter Role Name"
+          value={newRole}
+          onChange={(e) => setNewRole(e.target.value)} // Handle input change
+        />
+        <button onClick={addRole} className="add-button">Add Role</button>
+      </div>
+
+      {/* Table to display roles */}
+      <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
             <th>Role</th>
-            <th>Actions</th> {/* Added actions column */}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users.length > 0 ? (
-            users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
+          {roles.length === 0 ? (
+            <tr>
+              <td colSpan="3">No roles available</td> {/* Show message if no roles */}
+            </tr>
+          ) : (
+            roles.map((role) => (
+              <tr key={role.id}>
+                <td>{role.id}</td>
+                <td>{role.name}</td>
                 <td>
                   <button
-                    className="btn btn-warning btn-sm mx-2"
-                    onClick={() => alert("Edit feature is not implemented yet")}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => deleteRole(role.id)} // Call deleteRole on click
+                    className="delete-button"
                   >
                     Delete
                   </button>
                 </td>
               </tr>
             ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center">
-                No users found.
-              </td>
-            </tr>
           )}
         </tbody>
       </table>
@@ -80,4 +99,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default RoleManagement;
