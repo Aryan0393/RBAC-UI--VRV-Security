@@ -1,90 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './RoleManagement.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap import for styling
 
-const RoleManagement = () => {
-  const [roles, setRoles] = useState([]);
-  const [newRole, setNewRole] = useState('');
+const UserManagement = () => {
+  const [users, setUsers] = useState([]);
 
+  // Fetch users data
   useEffect(() => {
-    fetchRoles();
+    axios
+      .get("http://localhost:5000/users") // Ensure this endpoint is correct
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching users:", error);
+      });
   }, []);
 
-  const fetchRoles = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/roles');
-      setRoles(response.data);
-    } catch (error) {
-      console.error('Error fetching roles:', error);
-    }
-  };
-
-  const addRole = async () => {
-    if (!newRole) {
-      alert('Please enter a role name.');
-      return;
-    }
-
-    try {
-      const response = await axios.post('http://localhost:5000/roles', { name: newRole });
-      // Use a functional update to make sure the state reflects the most recent value
-      setRoles(prevRoles => [...prevRoles, response.data]);
-      setNewRole('');
-    } catch (error) {
-      console.error('Error adding role:', error);
-    }
-  };
-
-  const deleteRole = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/roles/${id}`);
-      setRoles(prevRoles => prevRoles.filter(role => role.id !== id));
-    } catch (error) {
-      console.error('Error deleting role:', error);
-    }
+  // Delete user function
+  const deleteUser = (id) => {
+    axios
+      .delete(`http://localhost:5000/users/${id}`)
+      .then((response) => {
+        // Remove deleted user from the state
+        setUsers(users.filter(user => user.id !== id));
+      })
+      .catch((error) => {
+        console.log("Error deleting user:", error);
+      });
   };
 
   return (
-    <div className="role-management">
-      <h2>Role Management</h2>
-      
-      <div className="add-role-form">
-        <input
-          type="text"
-          placeholder="Enter Role Name"
-          value={newRole}
-          onChange={(e) => setNewRole(e.target.value)}
-        />
-        <button onClick={addRole} className="add-button">Add Role</button>
-      </div>
-
-      <table>
+    <div className="container mt-4">
+      <h2 className="text-center">User Management</h2>
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
             <th>Role</th>
-            <th>Actions</th>
+            <th>Actions</th> {/* Added actions column */}
           </tr>
         </thead>
         <tbody>
-          {roles.map((role) => (
-            <tr key={role.id}>
-              <td>{role.id}</td>
-              <td>{role.name}</td>
-              <td>
-                <button
-                  onClick={() => deleteRole(role.id)}
-                  className="delete-button"
-                >
-                  Delete
-                </button>
+          {users.length > 0 ? (
+            users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button
+                    className="btn btn-warning btn-sm mx-2"
+                    onClick={() => alert("Edit feature is not implemented yet")}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => deleteUser(user.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                No users found.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default RoleManagement;
+export default UserManagement;
