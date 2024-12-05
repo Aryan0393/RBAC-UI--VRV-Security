@@ -115,6 +115,8 @@ Thanks to React and Node.js for providing such a great ecosystem.
 
 output
 
+![Screenshot 2024-12-05 at 2 49 51 AM](https://github.com/user-attachments/assets/9cf07acf-287b-4ca3-815b-30d48531ee0b)
+
 
 ![Screenshot jpg 2024-1<img width="1440" alt="Screenshot 2024-12-05 at 2 49 51 AM" src="https://github.com/user-attachments/assets/b4b295ff-8a74-495e-81aa-d09c50981b43">
-2-05 at 2 50 00 AM](https://github.com/user-attachments/assets/29c18a83-549d-4094-91cd-2b4548af636e)
+
